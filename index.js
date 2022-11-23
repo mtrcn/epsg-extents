@@ -64,9 +64,10 @@ const storeAll = (index) => {
 			else
 			{
 				const polygon = bboxPolygon(result.bbox)
-				delete result.bbox
-				result.geometry = polygon.geometry
-				all[result.code] = result
+				all[result.code] = {
+					geometry: polygon.geometry,
+					proj4: result.proj4
+				}
 			}				
 			return all
 		}, {})
