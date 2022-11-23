@@ -6,6 +6,8 @@ const fs = require('fs')
 const bboxPolygon = require('@turf/bbox-polygon').default
 const req = require('./request')
 
+// This code is mostly obtained from https://github.com/derhuerst/epsg-index
+
 const getNrOfPages = () => {
 	return req({ q: '' })
 		.then(data => Math.ceil(data.number_result / data.results.length))
