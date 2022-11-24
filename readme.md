@@ -1,6 +1,13 @@
 ## EPSG Extents and PROJ4 Definitions
 
-`projections.json` file contains all extents in GeoJSON polygon and PROJ4 definitions available in epsg.io website. 
+`projections.json` file contains all extents in GeoJSON polygon available in epsg.io website. 
+
+`proj4defs.json` is generated with PostGIS via following command; 
+
+```sql
+select jsonb_object_agg(srid, trim(proj4text)) from
+spatial_ref_sys
+```
 
 If you want to get latest updated list clone this repository and run following commands in command line:
 

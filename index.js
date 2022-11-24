@@ -4,6 +4,7 @@ const createQueue = require('queue')
 const pick = require('lodash.pick')
 const fs = require('fs')
 const bboxPolygon = require('@turf/bbox-polygon').default
+const proj4defs = require('./proj4defs.json')
 const req = require('./request')
 
 // This code is mostly obtained from https://github.com/derhuerst/epsg-index
@@ -53,7 +54,6 @@ const parseResult = (res) => {
 	return Object.assign(pick(res, [
 		'code'
 	]), {
-		proj4: res.proj4 || null,
 		bbox: res.bbox ? [res.bbox[1], res.bbox[2], res.bbox[3], res.bbox[0]] : null
 	})
 }
@@ -68,7 +68,7 @@ const storeAll = (index) => {
 				const polygon = bboxPolygon(result.bbox)
 				all[result.code] = {
 					geometry: polygon.geometry,
-					proj4: result.proj4
+					proj4: proj4defs[result.code] || null
 				}
 			}				
 			return all
