@@ -54,6 +54,7 @@ const parseResult = (res) => {
 	return Object.assign(pick(res, [
 		'code'
 	]), {
+		proj4: res.proj4 || null,
 		bbox: res.bbox ? [res.bbox[1], res.bbox[2], res.bbox[3], res.bbox[0]] : null
 	})
 }
@@ -68,7 +69,7 @@ const storeAll = (index) => {
 				const polygon = bboxPolygon(result.bbox)
 				all[result.code] = {
 					geometry: polygon.geometry,
-					proj4: proj4defs[result.code] || null
+					proj4: proj4defs[result.code] || (result.proj4 || null)
 				}
 			}				
 			return all
